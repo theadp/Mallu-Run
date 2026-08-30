@@ -39,12 +39,26 @@ class Game {
 
   setupResize() {
     const resize = () => {
+      // Keep the internal pixel buffer at 640×360; CSS letterboxes it.
       this.canvas.width = this.virtualWidth;
       this.canvas.height = this.virtualHeight;
       this.ctx.imageSmoothingEnabled = false;
     };
     window.addEventListener('resize', resize);
+    window.addEventListener('orientationchange', resize);
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', resize);
+      window.visualViewport.addEventListener('scroll', resize);
+    }
     resize();
+
+    document.addEventListener('touchmove', (e) => {
+      if (!document.body.classList.contains('is-playing')) return;
+      if (e.target.closest && e.target.closest('.ui-screen.active, .menu-content-card, .instructions-scrollable')) {
+        return;
+      }
+      e.preventDefault();
+    }, { passive: false });
   }
 
   startLevel(lvl) {

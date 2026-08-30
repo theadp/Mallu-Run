@@ -12,8 +12,9 @@
 </head>
 <body>
   <div id="game-container">
-    <!-- Canvas Game Viewport -->
-    <canvas id="gameCanvas"></canvas>
+    <!-- Playfield: canvas + HUD only (touch bar is reserved below on mobile) -->
+    <div id="game-playfield">
+      <canvas id="gameCanvas"></canvas>
 
     <!-- In-Game HUD Layer -->
     <div id="hud-overlay" class="ui-layer hidden">
@@ -64,22 +65,32 @@
         ⚠️ FLOOD RISING! RUN! ⚠️
       </div>
     </div>
+    </div>
 
-    <!-- Mobile Virtual Touch Controls -->
-    <div id="mobile-controls" class="mobile-controls-layer">
+    <!-- Mobile Virtual Touch Controls (divs: reliable multi-touch on iOS) -->
+    <div id="mobile-controls" class="mobile-controls-layer" aria-hidden="true">
       <div class="touch-cluster touch-left">
-        <button id="touch-btn-left" class="touch-btn touch-btn-dir" aria-label="Move Left">◀</button>
-        <button id="touch-btn-right" class="touch-btn touch-btn-dir" aria-label="Move Right">▶</button>
+        <div id="touch-btn-left" class="touch-btn touch-btn-dir" role="button" aria-label="Move Left">◀</div>
+        <div id="touch-btn-right" class="touch-btn touch-btn-dir" role="button" aria-label="Move Right">▶</div>
       </div>
       <div class="touch-cluster touch-right">
-        <button id="touch-btn-slide" class="touch-btn touch-btn-action slide-btn" aria-label="Slide">
+        <div id="touch-btn-slide" class="touch-btn touch-btn-action slide-btn" role="button" aria-label="Slide">
           <span>⬇</span>
           <span class="btn-subtext">SLIDE</span>
-        </button>
-        <button id="touch-btn-jump" class="touch-btn touch-btn-action jump-btn" aria-label="Jump">
+        </div>
+        <div id="touch-btn-jump" class="touch-btn touch-btn-action jump-btn" role="button" aria-label="Jump">
           <span>⬆</span>
           <span class="btn-subtext">JUMP</span>
-        </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Portrait-only: no gameplay layout, prompt to rotate -->
+    <div id="portrait-rotate-overlay" class="portrait-rotate-overlay" aria-hidden="true">
+      <div class="portrait-rotate-card">
+        <div class="portrait-rotate-icon">📱</div>
+        <h2>ROTATE YOUR PHONE</h2>
+        <p>Mallu Run is best played in landscape.</p>
       </div>
     </div>
 

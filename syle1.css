@@ -1,6 +1,6 @@
+
 /* ==========================================================================
-   MALLU RUN: ESCAPE THE MONSOON
-   Retro Pixel-Art Styling System
+   MALLU RUN: ESCAPE THE MONSOON - Retro Pixel-Art Styling System
    ========================================================================== */
 
 :root {
@@ -8,38 +8,29 @@
   --c-sky-clear: #4a90e2;
   --c-sky-monsoon: #1f2e3d;
   --c-sky-storm: #0e1724;
-
   --c-green-lush: #2d6a4f;
   --c-green-dark: #1b4332;
   --c-green-leaf: #52b788;
-
   --c-earth-road: #3a2e2b;
   --c-asphalt: #2b2b2e;
-
   --c-terracotta: #b73e23;
   --c-terracotta-dark: #7a220e;
-
   --c-gold-primary: #f5b041;
   --c-gold-glow: #f4d03f;
   --c-yellow-accent: #f1c40f;
-
   --c-danger-red: #e74c3c;
   --c-danger-glow: #ff7675;
-
   --c-water-surge: #2980b9;
   --c-water-deep: #1a5276;
-
   --c-ui-bg: rgba(14, 23, 36, 0.95);
   --c-ui-border: #f5b041;
   --c-ui-border-dark: #8c5b0d;
-
   --c-ui-text: #ecf0f1;
   --c-ui-text-dim: #bdc3c7;
 
-  --font-retro: "Press Start 2P", monospace, sans-serif;
-  --font-body: "Silkscreen", monospace, sans-serif;
+  --font-retro: 'Press Start 2P', monospace, sans-serif;
+  --font-body: 'Silkscreen', monospace, sans-serif;
 }
-
 
 /* ==========================================================================
    RESET
@@ -67,7 +58,6 @@ body {
   overscroll-behavior: none;
 
   background-color: #080d14;
-
   color: var(--c-ui-text);
 
   font-family: var(--font-retro);
@@ -76,14 +66,9 @@ body {
   touch-action: none;
 }
 
-body {
-  margin: 0;
-}
-
 .hidden {
   display: none !important;
 }
-
 
 /* ==========================================================================
    MAIN GAME CONTAINER
@@ -103,7 +88,6 @@ body {
 
   background: #0a1017;
 }
-
 
 /* ==========================================================================
    GAME PLAYFIELD
@@ -128,10 +112,11 @@ body {
   background: #0a1017;
 }
 
-
-/* ==========================================================================
-   CANVAS
-   ========================================================================== */
+/*
+   IMPORTANT:
+   The game is internally 640x360.
+   We preserve the 16:9 aspect ratio.
+*/
 
 #gameCanvas {
   display: block;
@@ -150,7 +135,6 @@ body {
 
   background: #111;
 }
-
 
 /* ==========================================================================
    HUD
@@ -198,12 +182,10 @@ body {
 
   border-radius: 6px;
 
-  box-shadow:
-    0 4px 12px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 
   pointer-events: auto;
 }
-
 
 /* ==========================================================================
    HEARTS
@@ -216,29 +198,21 @@ body {
 
   font-size: 16px;
 
-  filter:
-    drop-shadow(
-      0 2px 4px rgba(0, 0, 0, 0.8)
-    );
+  filter: drop-shadow(
+    0 2px 4px rgba(0, 0, 0, 0.8)
+  );
 }
 
 .hud-hearts .heart {
   transition:
     transform 0.2s
-    cubic-bezier(
-      0.175,
-      0.885,
-      0.32,
-      1.275
-    );
+    cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .hud-hearts .heart.lost {
   filter: grayscale(1) opacity(0.35);
-
   transform: scale(0.8);
 }
-
 
 /* ==========================================================================
    MONSOON METER
@@ -272,13 +246,11 @@ body {
 
 .monsoon-stage-name {
   color: var(--c-yellow-accent);
-
   font-weight: bold;
 }
 
 .monsoon-gauge-track {
   width: 100%;
-
   height: 10px;
 
   background: #080e18;
@@ -294,7 +266,6 @@ body {
 
 .monsoon-gauge-fill {
   height: 100%;
-
   width: 20%;
 
   background:
@@ -335,8 +306,7 @@ body {
   width: 100%;
   background: #e74c3c;
 
-  animation:
-    pulse-danger 0.6s infinite alternate;
+  animation: pulse-danger 0.6s infinite alternate;
 }
 
 @keyframes pulse-danger {
@@ -348,7 +318,6 @@ body {
     filter: brightness(1.5);
   }
 }
-
 
 /* ==========================================================================
    COINS
@@ -365,8 +334,7 @@ body {
 
   color: var(--c-gold-glow);
 
-  text-shadow:
-    2px 2px 0 #000;
+  text-shadow: 2px 2px 0 #000;
 }
 
 .hud-coins .coin-icon {
@@ -375,23 +343,6 @@ body {
   animation:
     spin-coin 2s infinite ease-in-out;
 }
-
-
-/* ==========================================================================
-   COIN ANIMATION
-   ========================================================================== */
-
-@keyframes spin-coin {
-  0%,
-  100% {
-    transform: scaleX(1);
-  }
-
-  50% {
-    transform: scaleX(0.25);
-  }
-}
-
 
 /* ==========================================================================
    PAUSE BUTTON
@@ -414,20 +365,16 @@ body {
 
   border-radius: 4px;
 
-  box-shadow:
-    2px 2px 0 #000;
+  box-shadow: 2px 2px 0 #000;
 
-  transition:
-    transform 0.08s;
+  transition: transform 0.08s;
 }
 
 .pixel-btn-icon:active {
   transform: translate(2px, 2px);
 
-  box-shadow:
-    0 0 0 #000;
+  box-shadow: 0 0 0 #000;
 }
-
 
 /* ==========================================================================
    DISTANCE BAR
@@ -471,7 +418,6 @@ body {
   position: relative;
 
   width: 100%;
-
   height: 8px;
 
   background: #0c1420;
@@ -483,7 +429,6 @@ body {
 
 .progress-fill {
   height: 100%;
-
   width: 0%;
 
   background:
@@ -495,8 +440,7 @@ body {
 
   border-radius: 3px;
 
-  transition:
-    width 0.1s linear;
+  transition: width 0.1s linear;
 }
 
 .progress-runner-icon {
@@ -509,13 +453,11 @@ body {
 
   font-size: 14px;
 
-  transition:
-    left 0.1s linear;
+  transition: left 0.1s linear;
 
-  filter:
-    drop-shadow(
-      0 2px 2px #000
-    );
+  filter: drop-shadow(
+    0 2px 2px #000
+  );
 }
 
 .progress-home-icon {
@@ -527,7 +469,6 @@ body {
   font-size: 14px;
 }
 
-
 /* ==========================================================================
    FLOOD WARNING
    ========================================================================== */
@@ -536,6 +477,7 @@ body {
   position: absolute;
 
   top: 75px;
+
   left: 50%;
 
   transform: translateX(-50%);
@@ -553,8 +495,7 @@ body {
   border-radius: 6px;
 
   box-shadow:
-    0 4px 15px
-    rgba(231, 76, 60, 0.8);
+    0 4px 15px rgba(231, 76, 60, 0.8);
 
   animation:
     pulse-danger 0.4s infinite alternate;
@@ -562,9 +503,8 @@ body {
   pointer-events: none;
 }
 
-
 /* ==========================================================================
-   MOBILE TOUCH CONTROLS — BASE
+   MOBILE TOUCH CONTROLS
    ========================================================================== */
 
 .mobile-controls-layer {
@@ -589,10 +529,7 @@ body {
   padding:
     8px
     18px
-    calc(
-      10px +
-      env(safe-area-inset-bottom, 0px)
-    )
+    calc(10px + env(safe-area-inset-bottom, 0px))
     18px;
 
   padding-left:
@@ -607,12 +544,10 @@ body {
       env(safe-area-inset-right, 0px)
     );
 
-  background:
-    rgba(8, 13, 20, 0.94);
+  background: rgba(8, 13, 20, 0.94);
 
   border-top:
-    2px solid
-    rgba(245, 176, 65, 0.4);
+    2px solid rgba(245, 176, 65, 0.4);
 }
 
 .touch-cluster {
@@ -626,12 +561,9 @@ body {
 }
 
 .touch-btn {
-  background:
-    rgba(22, 36, 56, 0.92);
+  background: rgba(22, 36, 56, 0.92);
 
-  border:
-    3px solid
-    rgba(245, 176, 65, 0.8);
+  border: 3px solid rgba(245, 176, 65, 0.8);
 
   color: #fff;
 
@@ -641,14 +573,14 @@ body {
 
   box-shadow:
     0 4px 0 #080d14,
-    0 6px 12px
-    rgba(0, 0, 0, 0.5);
+    0 6px 12px rgba(0, 0, 0, 0.5);
 
   display: flex;
 
   flex-direction: column;
 
   justify-content: center;
+
   align-items: center;
 
   font-size: 18px;
@@ -660,8 +592,7 @@ body {
   user-select: none;
   -webkit-user-select: none;
 
-  -webkit-tap-highlight-color:
-    transparent;
+  -webkit-tap-highlight-color: transparent;
 
   transition:
     transform 0.05s,
@@ -671,17 +602,13 @@ body {
 
 .touch-btn:active,
 .touch-btn.pressed {
-  background:
-    rgba(245, 176, 65, 0.4);
+  background: rgba(245, 176, 65, 0.4);
 
-  border-color:
-    #f4d03f;
+  border-color: #f4d03f;
 
-  transform:
-    translateY(3px);
+  transform: translateY(3px);
 
-  box-shadow:
-    0 0 0 #080d14;
+  box-shadow: 0 0 0 #080d14;
 }
 
 .touch-btn-dir {
@@ -695,19 +622,15 @@ body {
 }
 
 .slide-btn {
-  background:
-    rgba(44, 62, 80, 0.92);
+  background: rgba(44, 62, 80, 0.92);
 
-  border-color:
-    #3498db;
+  border-color: #3498db;
 }
 
 .jump-btn {
-  background:
-    rgba(39, 174, 96, 0.92);
+  background: rgba(39, 174, 96, 0.92);
 
-  border-color:
-    #2ecc71;
+  border-color: #2ecc71;
 }
 
 .btn-subtext {
@@ -719,7 +642,6 @@ body {
 
   opacity: 0.9;
 }
-
 
 /* ==========================================================================
    UI SCREENS
@@ -755,8 +677,7 @@ body {
       env(safe-area-inset-bottom, 0px)
     );
 
-  transition:
-    opacity 0.25s ease;
+  transition: opacity 0.25s ease;
 
   touch-action: pan-y;
 }
@@ -777,11 +698,6 @@ body {
   pointer-events: auto;
 }
 
-
-/* ==========================================================================
-   MENU BACKDROP
-   ========================================================================== */
-
 .menu-backdrop-tint {
   position: absolute;
 
@@ -798,22 +714,14 @@ body {
       rgba(8, 13, 20, 0.92) 100%
     );
 
-  backdrop-filter:
-    blur(4px);
+  backdrop-filter: blur(4px);
 
-  -webkit-backdrop-filter:
-    blur(4px);
+  -webkit-backdrop-filter: blur(4px);
 }
 
 .modal-tint {
-  background:
-    rgba(5, 10, 16, 0.82);
+  background: rgba(5, 10, 16, 0.82);
 }
-
-
-/* ==========================================================================
-   MENU CARD
-   ========================================================================== */
 
 .menu-content-card {
   position: relative;
@@ -824,12 +732,9 @@ body {
 
   max-width: 440px;
 
-  background:
-    var(--c-ui-bg);
+  background: var(--c-ui-bg);
 
-  border:
-    4px solid
-    var(--c-ui-border);
+  border: 4px solid var(--c-ui-border);
 
   border-radius: 12px;
 
@@ -838,11 +743,8 @@ body {
   text-align: center;
 
   box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.8),
-
-    inset 0 0 15px
-    rgba(245, 176, 65, 0.1);
+    0 10px 30px rgba(0, 0, 0, 0.8),
+    inset 0 0 15px rgba(245, 176, 65, 0.1);
 
   display: flex;
 
@@ -856,14 +758,12 @@ body {
 
   touch-action: pan-y;
 
-  -webkit-overflow-scrolling:
-    touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 .menu-content-card.wide-card {
   max-width: 680px;
 }
-
 
 /* ==========================================================================
    LOGO
@@ -876,8 +776,7 @@ body {
 .logo-badge {
   font-size: 9px;
 
-  color:
-    var(--c-gold-primary);
+  color: var(--c-gold-primary);
 
   letter-spacing: 1px;
 
@@ -887,8 +786,7 @@ body {
 .game-title {
   font-size: 26px;
 
-  color:
-    var(--c-gold-glow);
+  color: var(--c-gold-glow);
 
   text-shadow:
     3px 3px 0 #8c5b0d,
@@ -908,18 +806,15 @@ body {
 
   margin-top: 4px;
 
-  text-shadow:
-    1px 1px 0 #000;
+  text-shadow: 1px 1px 0 #000;
 }
 
 .pixel-heading {
   font-size: 16px;
 
-  color:
-    var(--c-gold-glow);
+  color: var(--c-gold-glow);
 
-  text-shadow:
-    2px 2px 0 #000;
+  text-shadow: 2px 2px 0 #000;
 
   letter-spacing: 1px;
 }
@@ -930,19 +825,16 @@ body {
 
 .game-over-title {
   color: #e74c3c;
-
   font-size: 20px;
 }
 
 .victory-title {
   color: #2ecc71;
-
   font-size: 18px;
 }
 
 .final-title {
   color: #f1c40f;
-
   font-size: 22px;
 }
 
@@ -953,10 +845,8 @@ body {
 
   font-style: italic;
 
-  font-family:
-    var(--font-body);
+  font-family: var(--font-body);
 }
-
 
 /* ==========================================================================
    MENU BUTTONS
@@ -973,8 +863,7 @@ body {
 }
 
 .pixel-btn {
-  font-family:
-    var(--font-retro);
+  font-family: var(--font-retro);
 
   font-size: 11px;
 
@@ -986,8 +875,7 @@ body {
 
   border: 3px solid;
 
-  box-shadow:
-    0 4px 0 #000;
+  box-shadow: 0 4px 0 #000;
 
   text-align: center;
 
@@ -999,11 +887,9 @@ body {
 }
 
 .pixel-btn:active {
-  transform:
-    translateY(3px);
+  transform: translateY(3px);
 
-  box-shadow:
-    0 1px 0 #000;
+  box-shadow: 0 1px 0 #000;
 }
 
 .pixel-btn.primary {
@@ -1013,8 +899,7 @@ body {
 
   color: #fff;
 
-  text-shadow:
-    1px 1px 0 #1b4332;
+  text-shadow: 1px 1px 0 #1b4332;
 }
 
 .pixel-btn.primary:hover {
@@ -1058,21 +943,16 @@ body {
 .menu-high-score-banner {
   font-size: 9px;
 
-  color:
-    var(--c-gold-primary);
+  color: var(--c-gold-primary);
 
-  background:
-    rgba(8, 13, 20, 0.7);
+  background: rgba(8, 13, 20, 0.7);
 
   padding: 6px 10px;
 
   border-radius: 4px;
 
-  border:
-    1px solid
-    var(--c-ui-border-dark);
+  border: 1px solid var(--c-ui-border-dark);
 }
-
 
 /* ==========================================================================
    LEVEL SELECT
@@ -1095,8 +975,7 @@ body {
 .level-card {
   background: #14202e;
 
-  border:
-    3px solid #34495e;
+  border: 3px solid #34495e;
 
   border-radius: 8px;
 
@@ -1116,8 +995,7 @@ body {
 }
 
 .level-card.unlocked {
-  border-color:
-    var(--c-ui-border);
+  border-color: var(--c-ui-border);
 
   background: #1a2a3d;
 }
@@ -1125,8 +1003,7 @@ body {
 .level-card.locked {
   opacity: 0.55;
 
-  filter:
-    grayscale(0.8);
+  filter: grayscale(0.8);
 }
 
 .level-badge {
@@ -1138,8 +1015,7 @@ body {
 
   border-radius: 3px;
 
-  color:
-    var(--c-gold-glow);
+  color: var(--c-gold-glow);
 }
 
 .level-title {
@@ -1151,8 +1027,7 @@ body {
 }
 
 .level-desc {
-  font-family:
-    var(--font-body);
+  font-family: var(--font-body);
 
   font-size: 8px;
 
@@ -1171,25 +1046,21 @@ body {
 
 .level-diff.easy {
   background: #27ae60;
-
   color: #fff;
 }
 
 .level-diff.medium {
   background: #d35400;
-
   color: #fff;
 }
 
 .level-diff.hard {
   background: #c0392b;
-
   color: #fff;
 }
 
 .level-diff.extreme {
   background: #8e44ad;
-
   color: #fff;
 }
 
@@ -1217,7 +1088,6 @@ body {
   margin-top: 4px;
 }
 
-
 /* ==========================================================================
    HOW TO PLAY
    ========================================================================== */
@@ -1239,15 +1109,13 @@ body {
 
   touch-action: pan-y;
 
-  -webkit-overflow-scrolling:
-    touch;
+  -webkit-overflow-scrolling: touch;
 }
 
 .instruction-box {
   background: #14202e;
 
-  border:
-    2px solid #2c3e50;
+  border: 2px solid #2c3e50;
 
   border-radius: 6px;
 
@@ -1257,13 +1125,11 @@ body {
 .instruction-title {
   font-size: 10px;
 
-  color:
-    var(--c-gold-primary);
+  color: var(--c-gold-primary);
 
   margin-bottom: 8px;
 
-  border-bottom:
-    1px solid #2c3e50;
+  border-bottom: 1px solid #2c3e50;
 
   padding-bottom: 4px;
 }
@@ -1289,8 +1155,7 @@ body {
 .key-badge {
   background: #2c3e50;
 
-  border:
-    1px solid #74b9ff;
+  border: 1px solid #74b9ff;
 
   color: #fff;
 
@@ -1304,8 +1169,7 @@ body {
 .key-action {
   color: #ecf0f1;
 
-  font-family:
-    var(--font-body);
+  font-family: var(--font-body);
 
   font-size: 10px;
 }
@@ -1317,8 +1181,7 @@ body {
 
   margin-top: 8px;
 
-  font-family:
-    var(--font-body);
+  font-family: var(--font-body);
 }
 
 .gameplay-tips-list {
@@ -1330,8 +1193,7 @@ body {
 
   gap: 8px;
 
-  font-family:
-    var(--font-body);
+  font-family: var(--font-body);
 
   font-size: 10px;
 
@@ -1343,7 +1205,6 @@ body {
 
   padding-left: 4px;
 }
-
 
 /* ==========================================================================
    SETTINGS
@@ -1372,8 +1233,7 @@ body {
 
   border-radius: 6px;
 
-  border:
-    2px solid #2c3e50;
+  border: 2px solid #2c3e50;
 }
 
 .setting-label {
@@ -1383,8 +1243,7 @@ body {
 }
 
 .pixel-toggle-btn {
-  font-family:
-    var(--font-retro);
+  font-family: var(--font-retro);
 
   font-size: 10px;
 
@@ -1392,8 +1251,7 @@ body {
 
   border-radius: 4px;
 
-  border:
-    2px solid #27ae60;
+  border: 2px solid #27ae60;
 
   background: #27ae60;
 
@@ -1413,12 +1271,10 @@ body {
 .pixel-slider {
   width: 110px;
 
-  accent-color:
-    var(--c-gold-primary);
+  accent-color: var(--c-gold-primary);
 
   cursor: pointer;
 }
-
 
 /* ==========================================================================
    STATS
@@ -1427,8 +1283,7 @@ body {
 .stats-summary-box {
   background: #0f1823;
 
-  border:
-    2px solid #2c3e50;
+  border: 2px solid #2c3e50;
 
   border-radius: 6px;
 
@@ -1458,8 +1313,7 @@ body {
 }
 
 .score-highlight {
-  color:
-    var(--c-gold-glow) !important;
+  color: var(--c-gold-glow) !important;
 
   font-size: 11px;
 }
@@ -1479,18 +1333,12 @@ body {
 .awarded-star {
   filter:
     drop-shadow(
-      0 2px 6px
-      rgba(241, 196, 15, 0.8)
+      0 2px 6px rgba(241, 196, 15, 0.8)
     );
 
   animation:
     pop-star 0.5s
-    cubic-bezier(
-      0.175,
-      0.885,
-      0.32,
-      1.275
-    )
+    cubic-bezier(0.175, 0.885, 0.32, 1.275)
     both;
 }
 
@@ -1505,7 +1353,6 @@ body {
 @keyframes pop-star {
   0% {
     transform: scale(0);
-
     opacity: 0;
   }
 
@@ -1515,11 +1362,9 @@ body {
 
   100% {
     transform: scale(1);
-
     opacity: 1;
   }
 }
-
 
 /* ==========================================================================
    FINAL VICTORY
@@ -1539,19 +1384,16 @@ body {
 
 @keyframes bounce-house {
   from {
-    transform:
-      translateY(0);
+    transform: translateY(0);
   }
 
   to {
-    transform:
-      translateY(-8px);
+    transform: translateY(-8px);
   }
 }
 
 .final-subtitle {
-  font-family:
-    var(--font-body);
+  font-family: var(--font-body);
 
   font-size: 10px;
 
@@ -1563,8 +1405,7 @@ body {
 .final-stats-grid {
   display: grid;
 
-  grid-template-columns:
-    1fr 1fr;
+  grid-template-columns: 1fr 1fr;
 
   gap: 10px;
 }
@@ -1572,9 +1413,7 @@ body {
 .final-stat-box {
   background: #14202e;
 
-  border:
-    2px solid
-    var(--c-ui-border);
+  border: 2px solid var(--c-ui-border);
 
   border-radius: 6px;
 
@@ -1594,12 +1433,10 @@ body {
 }
 
 .gold-text {
-  color:
-    var(--c-gold-glow);
+  color: var(--c-gold-glow);
 
   font-size: 13px;
 }
-
 
 /* ==========================================================================
    CRT
@@ -1623,7 +1460,6 @@ body {
       rgba(18, 16, 16, 0) 50%,
       rgba(0, 0, 0, 0.25) 50%
     ),
-
     linear-gradient(
       90deg,
       rgba(255, 0, 0, 0.03),
@@ -1642,7 +1478,6 @@ body {
   display: none;
 }
 
-
 /* ==========================================================================
    PORTRAIT ROTATE SCREEN
    ========================================================================== */
@@ -1659,6 +1494,7 @@ body {
   flex-direction: column;
 
   justify-content: center;
+
   align-items: center;
 
   padding: 24px;
@@ -1671,20 +1507,16 @@ body {
 .portrait-rotate-card {
   max-width: 320px;
 
-  border:
-    4px solid
-    var(--c-ui-border);
+  border: 4px solid var(--c-ui-border);
 
   border-radius: 12px;
 
   padding: 28px 20px;
 
-  background:
-    var(--c-ui-bg);
+  background: var(--c-ui-bg);
 
   box-shadow:
-    0 10px 30px
-    rgba(0, 0, 0, 0.8);
+    0 10px 30px rgba(0, 0, 0, 0.8);
 }
 
 .portrait-rotate-icon {
@@ -1693,15 +1525,13 @@ body {
   margin-bottom: 12px;
 
   animation:
-    portrait-tilt 1.4s
-    ease-in-out infinite;
+    portrait-tilt 1.4s ease-in-out infinite;
 }
 
 .portrait-rotate-card h2 {
   font-size: 14px;
 
-  color:
-    var(--c-gold-glow);
+  color: var(--c-gold-glow);
 
   line-height: 1.4;
 
@@ -1709,13 +1539,11 @@ body {
 }
 
 .portrait-rotate-card p {
-  font-family:
-    var(--font-body);
+  font-family: var(--font-body);
 
   font-size: 12px;
 
-  color:
-    var(--c-ui-text-dim);
+  color: var(--c-ui-text-dim);
 
   line-height: 1.4;
 }
@@ -1723,16 +1551,13 @@ body {
 @keyframes portrait-tilt {
   0%,
   100% {
-    transform:
-      rotate(-18deg);
+    transform: rotate(-18deg);
   }
 
   50% {
-    transform:
-      rotate(70deg);
+    transform: rotate(70deg);
   }
 }
-
 
 /* ==========================================================================
    GENERAL RESPONSIVE
@@ -1767,16 +1592,13 @@ body {
   .pixel-btn {
     font-size: 10px;
 
-    padding:
-      10px 12px;
+    padding: 10px 12px;
   }
 
   .levels-grid {
-    grid-template-columns:
-      1fr 1fr;
+    grid-template-columns: 1fr 1fr;
   }
 }
-
 
 /* ==========================================================================
    TOUCH DEVICES
@@ -1785,13 +1607,11 @@ body {
 @media (pointer: coarse),
        (hover: none) {
 
-  body.is-playing
-  .mobile-controls-layer {
+  body.is-playing .mobile-controls-layer {
     display: flex;
   }
 
-  body.is-playing
-  .ui-layer {
+  body.is-playing .ui-layer {
     justify-content: flex-start;
 
     gap: 8px;
@@ -1799,15 +1619,13 @@ body {
     padding-bottom: 8px;
   }
 
-  body.is-playing
-  .hud-progress-container {
+  body.is-playing .hud-progress-container {
     margin: 0 auto;
 
     pointer-events: none;
   }
 
-  body.is-playing
-  .flood-warning {
+  body.is-playing .flood-warning {
     position: relative;
 
     top: auto;
@@ -1825,19 +1643,22 @@ body {
   }
 }
 
-
 /* ==========================================================================
-   🔥 MOBILE LANDSCAPE — BIG CONTROLS
+   MOBILE LANDSCAPE
    ========================================================================== */
 
-@media (orientation: landscape)
-       and (pointer: coarse),
-       (orientation: landscape)
-       and (hover: none) {
+/*
+   This is the important part.
 
-  /* ================================================================
-     FULL PHONE SCREEN
-     ================================================================ */
+   The game is landscape-first on phones.
+
+   The gameplay occupies the largest possible 16:9 area.
+   The controls are in their own strip BELOW the gameplay.
+   They never cover the runner/world.
+*/
+
+@media (orientation: landscape) and (pointer: coarse),
+       (orientation: landscape) and (hover: none) {
 
   #game-container {
     width: 100vw;
@@ -1852,20 +1673,17 @@ body {
     overflow: hidden;
   }
 
-
-  /* ================================================================
-     GAMEPLAY AREA
-     ================================================================ */
+  /*
+     Give the gameplay almost the entire screen.
+  */
 
   #game-playfield {
-    position: relative;
-
     flex: 1 1 auto;
-
-    width: 100%;
 
     min-width: 0;
     min-height: 0;
+
+    width: 100%;
 
     display: flex;
 
@@ -1875,6 +1693,10 @@ body {
     overflow: hidden;
   }
 
+  /*
+     Keep the game's original 640x360 aspect ratio.
+     Never stretch it vertically or horizontally.
+  */
 
   #gameCanvas {
     display: block;
@@ -1886,362 +1708,175 @@ body {
     max-height: 100%;
 
     object-fit: contain;
-
-    object-position: center;
-
-    image-rendering: pixelated;
-    image-rendering: crisp-edges;
+    object-position: center center;
   }
 
+  /*
+     CONTROL BAR
 
-  /* ================================================================
-     BIG MOBILE CONTROL BAR
-     ================================================================ */
+     Keep it compact so gameplay is not reduced
+     to a tiny box.
+  */
 
-  body.is-playing
-  .mobile-controls-layer {
-
+  body.is-playing .mobile-controls-layer {
     display: flex;
 
-    position: relative;
-
-    flex: 0 0 100px;
+    flex: 0 0 82px;
 
     width: 100%;
+    height: 82px;
 
-    height: 100px;
-
-    min-height: 100px;
+    min-height: 82px;
 
     align-items: center;
 
     justify-content: space-between;
 
-    gap: 20px;
+    gap: 8px;
 
-    padding-top: 8px;
-
-    padding-bottom:
-      max(
-        8px,
-        env(safe-area-inset-bottom)
-      );
-
-    padding-left:
-      max(
-        18px,
-        env(safe-area-inset-left)
-      );
-
-    padding-right:
-      max(
-        18px,
-        env(safe-area-inset-right)
-      );
-
-    background:
-      rgba(8, 13, 20, 0.97);
-
-    border-top:
-      3px solid
-      rgba(245, 176, 65, 0.55);
-
-    pointer-events: none;
-
-    z-index: 25;
+    padding:
+      6px
+      max(14px, env(safe-area-inset-right))
+      max(6px, env(safe-area-inset-bottom))
+      max(14px, env(safe-area-inset-left));
   }
 
+  /*
+     LEFT / RIGHT
+  */
 
-  /* ================================================================
-     CONTROL CLUSTERS
-     ================================================================ */
-
-  body.is-playing
   .touch-cluster {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    pointer-events: auto;
+    gap: 8px;
   }
 
-
-  /* ================================================================
-     HUGE LEFT / RIGHT BUTTONS
-     ================================================================ */
-
-  body.is-playing
   .touch-btn-dir {
+    width: 64px;
+    height: 54px;
 
-    width: 92px;
-
-    height: 70px;
-
-    flex: 0 0 92px;
-
-    font-size: 25px;
-
-    border-width: 3px;
-
-    border-radius: 16px;
-
-    box-shadow:
-      0 5px 0 #080d14,
-      0 8px 16px
-      rgba(0, 0, 0, 0.55);
+    font-size: 17px;
   }
 
+  /*
+     JUMP / SLIDE
+  */
 
-  /* ================================================================
-     HUGE JUMP / SLIDE BUTTONS
-     ================================================================ */
-
-  body.is-playing
   .touch-btn-action {
+    width: 78px;
+    height: 58px;
 
-    width: 108px;
-
-    height: 76px;
-
-    flex: 0 0 108px;
-
-    font-size: 25px;
-
-    border-width: 3px;
-
-    border-radius: 16px;
-
-    box-shadow:
-      0 5px 0 #080d14,
-      0 8px 16px
-      rgba(0, 0, 0, 0.55);
+    font-size: 17px;
   }
 
-
-  /* ================================================================
-     BUTTON LABEL
-     ================================================================ */
-
-  body.is-playing
   .btn-subtext {
-
-    font-size: 9px;
-
-    margin-top: 4px;
-
-    letter-spacing: 0.8px;
+    font-size: 7px;
   }
 
+  /*
+     COMPACT HUD
+  */
 
-  /* ================================================================
-     TOUCH PRESS EFFECT
-     ================================================================ */
-
-  body.is-playing
-  .touch-btn:active,
-
-  body.is-playing
-  .touch-btn.pressed {
-
-    transform:
-      translateY(5px);
-
-    box-shadow:
-      0 0 0 #080d14;
-  }
-
-
-  /* ================================================================
-     MOBILE HUD
-     ================================================================ */
-
-  body.is-playing
-  .ui-layer {
-
-    position: absolute;
-
-    top: 0;
-    left: 0;
-
-    width: 100%;
-    height: 100%;
-
-    padding-top:
-      max(
-        6px,
-        env(safe-area-inset-top)
-      );
-
-    padding-left: 8px;
-
-    padding-right: 8px;
-
-    padding-bottom: 6px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: flex-start;
+  body.is-playing .ui-layer {
+    padding:
+      max(5px, env(safe-area-inset-top))
+      8px
+      4px
+      8px;
 
     gap: 5px;
 
-    pointer-events: none;
-
-    z-index: 20;
+    justify-content: flex-start;
   }
 
+  body.is-playing .hud-top-bar {
+    padding: 4px 7px;
 
-  /* ================================================================
-     TOP HUD
-     ================================================================ */
-
-  body.is-playing
-  .hud-top-bar {
-
-    width: 100%;
-
-    padding: 5px 9px;
-
-    gap: 8px;
+    gap: 7px;
 
     border-width: 2px;
-
-    border-radius: 5px;
   }
 
-
-  body.is-playing
-  .hud-hearts {
-
-    font-size: 14px;
+  body.is-playing .hud-hearts {
+    font-size: 13px;
 
     gap: 2px;
   }
 
-
-  body.is-playing
-  .hud-monsoon {
-
-    min-width: 115px;
+  body.is-playing .hud-monsoon {
+    min-width: 100px;
 
     gap: 2px;
   }
 
-
-  body.is-playing
-  .monsoon-label-bar {
-
+  body.is-playing .monsoon-label-bar {
     font-size: 7px;
 
     gap: 3px;
   }
 
-
-  body.is-playing
-  .monsoon-gauge-track {
-
+  body.is-playing .monsoon-gauge-track {
     height: 7px;
   }
 
-
-  body.is-playing
-  .hud-coins {
-
+  body.is-playing .hud-coins {
     font-size: 10px;
 
     gap: 3px;
   }
 
-
-  body.is-playing
-  .hud-coins .coin-icon {
-
+  body.is-playing .hud-coins .coin-icon {
     font-size: 12px;
   }
 
-
-  body.is-playing
-  .pixel-btn-icon {
-
+  body.is-playing .pixel-btn-icon {
     font-size: 11px;
 
-    padding:
-      5px 8px;
+    padding: 4px 7px;
   }
 
+  /*
+     DISTANCE BAR MOVED UNDER THE HUD
+     instead of sitting at the bottom over controls.
+  */
 
-  /* ================================================================
-     DISTANCE PROGRESS
-     ================================================================ */
+  body.is-playing .hud-progress-container {
+    width: min(360px, 65vw);
 
-  body.is-playing
-  .hud-progress-container {
+    max-width: 360px;
 
-    width:
-      min(
-        380px,
-        65vw
-      );
+    padding: 3px 7px;
 
-    max-width: 380px;
-
-    padding:
-      3px 7px;
-
-    margin:
-      0 auto;
+    margin: 0 auto;
 
     border-width: 1px;
-
-    pointer-events: none;
   }
 
-
-  body.is-playing
-  .hud-distance-text {
-
+  body.is-playing .hud-distance-text {
     font-size: 7px;
 
     margin-bottom: 2px;
   }
 
-
-  body.is-playing
-  .progress-track {
-
+  body.is-playing .progress-track {
     height: 6px;
   }
 
-
-  body.is-playing
-  .progress-runner-icon {
-
+  body.is-playing .progress-runner-icon {
     top: -8px;
 
     font-size: 11px;
   }
 
-
-  body.is-playing
-  .progress-home-icon {
-
+  body.is-playing .progress-home-icon {
     top: -7px;
 
     font-size: 11px;
   }
 
-
-  /* ================================================================
+  /*
      FLOOD WARNING
-     ================================================================ */
+  */
 
-  body.is-playing
-  .flood-warning {
-
+  body.is-playing .flood-warning {
     position: relative;
 
     top: auto;
@@ -2255,13 +1890,11 @@ body {
 
     font-size: 8px;
 
-    padding:
-      4px 9px;
+    padding: 4px 8px;
 
     border-width: 2px;
   }
 }
-
 
 /* ==========================================================================
    VERY SHORT LANDSCAPE PHONES
@@ -2271,165 +1904,59 @@ body {
        and (pointer: coarse)
        and (max-height: 430px) {
 
-  body.is-playing
-  .mobile-controls-layer {
+  body.is-playing .mobile-controls-layer {
+    flex-basis: 70px;
 
-    flex-basis: 88px;
+    height: 70px;
 
-    height: 88px;
-
-    min-height: 88px;
-
-    padding-top: 6px;
-
-    padding-bottom: 6px;
-  }
-
-
-  body.is-playing
-  .touch-cluster {
-
-    gap: 9px;
-  }
-
-
-  body.is-playing
-  .touch-btn-dir {
-
-    width: 78px;
-
-    height: 62px;
-
-    flex-basis: 78px;
-
-    font-size: 22px;
-  }
-
-
-  body.is-playing
-  .touch-btn-action {
-
-    width: 92px;
-
-    height: 66px;
-
-    flex-basis: 92px;
-
-    font-size: 22px;
-  }
-
-
-  body.is-playing
-  .btn-subtext {
-
-    font-size: 8px;
-  }
-
-
-  body.is-playing
-  .hud-top-bar {
-
-    padding:
-      3px 6px;
-  }
-
-
-  body.is-playing
-  .hud-progress-container {
-
-    width:
-      min(
-        320px,
-        60vw
-      );
-
-    padding:
-      2px 6px;
-  }
-}
-
-
-/* ==========================================================================
-   EXTRA SHORT PHONES
-   ========================================================================== */
-
-@media (orientation: landscape)
-       and (pointer: coarse)
-       and (max-height: 360px) {
-
-  body.is-playing
-  .mobile-controls-layer {
-
-    flex-basis: 76px;
-
-    height: 76px;
-
-    min-height: 76px;
+    min-height: 70px;
 
     padding-top: 4px;
-
-    padding-bottom: 4px;
   }
 
-
-  body.is-playing
   .touch-btn-dir {
-
-    width: 68px;
-
-    height: 54px;
-
-    flex-basis: 68px;
-
-    font-size: 20px;
+    width: 58px;
+    height: 48px;
   }
 
-
-  body.is-playing
   .touch-btn-action {
-
-    width: 80px;
-
-    height: 58px;
-
-    flex-basis: 80px;
-
-    font-size: 20px;
+    width: 70px;
+    height: 52px;
   }
 
+  body.is-playing .hud-top-bar {
+    padding: 3px 6px;
+  }
 
-  body.is-playing
-  .btn-subtext {
+  body.is-playing .hud-progress-container {
+    width: min(320px, 60vw);
 
-    font-size: 7px;
+    padding: 2px 6px;
   }
 }
-
 
 /* ==========================================================================
    PORTRAIT PHONE
    ========================================================================== */
 
-@media (orientation: portrait)
-       and (pointer: coarse),
-       (orientation: portrait)
-       and (hover: none) {
+@media (orientation: portrait) and (pointer: coarse),
+       (orientation: portrait) and (hover: none) {
 
   .portrait-rotate-overlay {
     display: flex;
   }
 
+  /*
+     Hide actual game interaction while portrait.
+  */
 
-  body.is-playing
-  .mobile-controls-layer {
-
+  body.is-playing .mobile-controls-layer {
     display: none;
   }
 }
 
-
 /* ==========================================================================
-   DESKTOP
+   MOUSE / DESKTOP
    ========================================================================== */
 
 @media (pointer: fine) {

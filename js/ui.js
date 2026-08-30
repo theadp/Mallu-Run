@@ -27,6 +27,21 @@ class UIManager {
     this.refreshSettingsUI();
     this.refreshLevelSelectUI();
     this.updateMenuStats();
+    this.syncPlayingChrome(this.currentScreen);
+  }
+
+  syncPlayingChrome(screenId) {
+    const keepPlayLayout = (
+      screenId === null ||
+      screenId === 'screen-pause' ||
+      screenId === 'screen-game-over' ||
+      screenId === 'screen-level-complete'
+    );
+    document.body.classList.toggle('is-playing', keepPlayLayout);
+    const controls = document.getElementById('mobile-controls');
+    if (controls) {
+      controls.setAttribute('aria-hidden', keepPlayLayout ? 'false' : 'true');
+    }
   }
 
   showScreen(screenId) {
@@ -43,6 +58,7 @@ class UIManager {
       }
     });
     this.currentScreen = screenId;
+    this.syncPlayingChrome(screenId);
 
     // Toggle HUD visibility
     const hud = document.getElementById('hud-overlay');
@@ -68,6 +84,7 @@ class UIManager {
     const hud = document.getElementById('hud-overlay');
     if (hud) hud.classList.remove('hidden');
     this.currentScreen = null;
+    this.syncPlayingChrome(null);
   }
 
   bindEvents() {

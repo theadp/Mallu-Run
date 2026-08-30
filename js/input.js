@@ -5,7 +5,7 @@ class InputManager {
   constructor() {
     this.keysDown = {};
     this.keysJustPressed = {};
-    this.touchPointers = new Map(); // pointerId -> action
+    this.touchPointers = new Map(); // pointerId -> { action, el }
 
     this.actions = {
       left: false,
@@ -72,16 +72,48 @@ class InputManager {
     });
   }
 
+  isActionStillHeld(action) {
+    for (const rec of this.touchPointers.values()) {
+      if (rec.action === action) return true;
+    }
+    return false;
+  }
+
+  releasePointer(pointerId) {
+    const rec = this.touchPointers.get(pointerId);
+    if (!rec) return;
+
+    this.touchPointers.delete(pointerId);
+
+    if (rec.el) {
+      rec.el.classList.remove('pressed');
+      try {
+        if (rec.el.hasPointerCapture && rec.el.hasPointerCapture(pointerId)) {
+          rec.el.releasePointerCapture(pointerId);
+        }
+      } catch (_) { /* already released */ }
+    }
+
+    if (!this.isActionStillHeld(rec.action)) {
+      this.actions[rec.action] = false;
+    }
+  }
+
   setupTouch() {
     const bindBtn = (elementId, action) => {
       const btn = document.getElementById(elementId);
       if (!btn) return;
 
       const onPointerDown = (e) => {
+        if (e.button != null && e.button !== 0) return;
         e.preventDefault();
         e.stopPropagation();
+        try {
+          btn.setPointerCapture(e.pointerId);
+        } catch (_) { /* capture unsupported */ }
+
         btn.classList.add('pressed');
-        this.touchPointers.set(e.pointerId, action);
+        this.touchPointers.set(e.pointerId, { action, el: btn });
         if (!this.actions[action]) {
           this.justPressedActions[action] = true;
         }
@@ -90,33 +122,26 @@ class InputManager {
 
       const onPointerUp = (e) => {
         e.preventDefault();
-        e.stopPropagation();
-        btn.classList.remove('pressed');
-        this.touchPointers.delete(e.pointerId);
-
-        // Check if another finger is still holding this action
-        let stillHeld = false;
-        for (const act of this.touchPointers.values()) {
-          if (act === action) {
-            stillHeld = true;
-            break;
-          }
-        }
-        if (!stillHeld) {
-          this.actions[action] = false;
-        }
+        this.releasePointer(e.pointerId);
       };
 
       btn.addEventListener('pointerdown', onPointerDown, { passive: false });
       btn.addEventListener('pointerup', onPointerUp, { passive: false });
       btn.addEventListener('pointercancel', onPointerUp, { passive: false });
-      btn.addEventListener('pointerleave', onPointerUp, { passive: false });
+      btn.addEventListener('contextmenu', (e) => e.preventDefault());
     };
 
     bindBtn('touch-btn-left', 'left');
     bindBtn('touch-btn-right', 'right');
     bindBtn('touch-btn-jump', 'jump');
     bindBtn('touch-btn-slide', 'slide');
+
+    const onWindowPointerEnd = (e) => {
+      if (!this.touchPointers.has(e.pointerId)) return;
+      this.releasePointer(e.pointerId);
+    };
+    window.addEventListener('pointerup', onWindowPointerEnd, { capture: true, passive: false });
+    window.addEventListener('pointercancel', onWindowPointerEnd, { capture: true, passive: false });
   }
 
   isDown(action) {

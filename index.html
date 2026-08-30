@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>Mallu Run: Escape the Monsoon 🌧️</title>
+  <meta name="description" content="A fast-paced 2D retro pixel-art platformer runner set in Kerala during an escalating monsoon. Run, jump, slide, dodge vehicles, and escape the flood to reach home!">
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div id="game-container">
+    <!-- Canvas Game Viewport -->
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- In-Game HUD Layer -->
+    <div id="hud-overlay" class="ui-layer hidden">
+      <div class="hud-top-bar">
+        <!-- Health Display -->
+        <div class="hud-hearts" id="hud-hearts">
+          <span class="heart active">❤️</span>
+          <span class="heart active">❤️</span>
+          <span class="heart active">❤️</span>
+        </div>
+
+        <!-- Monsoon Weather Meter -->
+        <div class="hud-monsoon">
+          <div class="monsoon-label-bar">
+            <span class="monsoon-title">🌧️ MONSOON:</span>
+            <span id="monsoon-status-text" class="monsoon-stage-name">CLEAR</span>
+          </div>
+          <div class="monsoon-gauge-track">
+            <div id="monsoon-gauge-fill" class="monsoon-gauge-fill stage-0"></div>
+          </div>
+        </div>
+
+        <!-- Coins Counter -->
+        <div class="hud-coins">
+          <span class="coin-icon">🪙</span>
+          <span id="hud-coin-count">000</span>
+        </div>
+
+        <!-- Pause Button (Mobile & Desktop) -->
+        <button id="btn-pause-hud" class="pixel-btn-icon" aria-label="Pause Game">⏸</button>
+      </div>
+
+      <!-- Distance Progress Bar -->
+      <div class="hud-progress-container">
+        <div class="hud-distance-text">
+          <span>DISTANCE: <strong id="hud-distance-val">0m</strong></span>
+          <span id="hud-level-name-tag">LVL 1: NAADU ROAD</span>
+        </div>
+        <div class="progress-track">
+          <div id="progress-runner-icon" class="progress-runner-icon">🏃</div>
+          <div class="progress-home-icon">🏠</div>
+          <div id="progress-fill" class="progress-fill"></div>
+        </div>
+      </div>
+
+      <!-- Flood Alert Warning Indicator (Level 4 / Storms) -->
+      <div id="hud-flood-warning" class="flood-warning hidden">
+        ⚠️ FLOOD RISING! RUN! ⚠️
+      </div>
+    </div>
+
+    <!-- Mobile Virtual Touch Controls -->
+    <div id="mobile-controls" class="mobile-controls-layer">
+      <div class="touch-cluster touch-left">
+        <button id="touch-btn-left" class="touch-btn touch-btn-dir" aria-label="Move Left">◀</button>
+        <button id="touch-btn-right" class="touch-btn touch-btn-dir" aria-label="Move Right">▶</button>
+      </div>
+      <div class="touch-cluster touch-right">
+        <button id="touch-btn-slide" class="touch-btn touch-btn-action slide-btn" aria-label="Slide">
+          <span>⬇</span>
+          <span class="btn-subtext">SLIDE</span>
+        </button>
+        <button id="touch-btn-jump" class="touch-btn touch-btn-action jump-btn" aria-label="Jump">
+          <span>⬆</span>
+          <span class="btn-subtext">JUMP</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- UI SCREENS (OVERLAYS) -->
+
+    <!-- 1. Main Menu Screen -->
+    <div id="screen-main-menu" class="ui-screen active">
+      <div class="menu-backdrop-tint"></div>
+      <div class="menu-content-card">
+        <div class="game-logo-wrapper">
+          <div class="logo-badge">🥥 KERALA MONSOON ESCAPE 🌧️</div>
+          <h1 class="game-title">MALLU RUN</h1>
+          <p class="game-subtitle">ESCAPE THE MONSOON</p>
+        </div>
+
+        <div class="menu-actions">
+          <button id="btn-menu-play" class="pixel-btn primary large-btn">▶ PLAY GAME</button>
+          <button id="btn-menu-levels" class="pixel-btn secondary">🗺️ LEVEL SELECT</button>
+          <button id="btn-menu-how" class="pixel-btn secondary">📖 HOW TO PLAY</button>
+          <button id="btn-menu-settings" class="pixel-btn secondary">⚙️ SETTINGS</button>
+        </div>
+
+        <div class="menu-high-score-banner">
+          <span>🏆 BEST TOTAL SCORE: </span>
+          <strong id="menu-best-score">00000</strong>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Level Select Screen -->
+    <div id="screen-level-select" class="ui-screen hidden">
+      <div class="menu-backdrop-tint"></div>
+      <div class="menu-content-card wide-card">
+        <h2 class="pixel-heading">🗺️ SELECT LEVEL</h2>
+        <div class="levels-grid">
+          <!-- Level 1 Card -->
+          <div class="level-card unlocked" data-level="1" id="level-card-1">
+            <div class="level-badge">LVL 1</div>
+            <h3 class="level-title">NAADU ROAD</h3>
+            <p class="level-desc">Village road, coconut palms, puddles & light rain.</p>
+            <div class="level-diff easy">EASY</div>
+            <div class="level-stars" id="stars-lvl-1">★★★</div>
+            <div class="level-best" id="best-lvl-1">Best: 0</div>
+            <button class="pixel-btn play-level-btn" data-level="1">START</button>
+          </div>
+
+          <!-- Level 2 Card -->
+          <div class="level-card locked" data-level="2" id="level-card-2">
+            <div class="level-badge">LVL 2</div>
+            <h3 class="level-title">MONSOON MADNESS</h3>
+            <p class="level-desc">Heavy rain, slippery roads, falling branches & storm.</p>
+            <div class="level-diff medium">MEDIUM</div>
+            <div class="level-stars" id="stars-lvl-2">☆☆☆</div>
+            <div class="level-best" id="best-lvl-2">Best: -</div>
+            <button class="pixel-btn play-level-btn" data-level="2" disabled>LOCKED 🔒</button>
+          </div>
+
+          <!-- Level 3 Card -->
+          <div class="level-card locked" data-level="3" id="level-card-3">
+            <div class="level-badge">LVL 3</div>
+            <h3 class="level-title">FLOOD ESCAPE</h3>
+            <p class="level-desc">Deluge surge! Escape the rising floodwater and reach home!</p>
+            <div class="level-diff extreme">FINAL STAGE</div>
+            <div class="level-stars" id="stars-lvl-3">☆☆☆</div>
+            <div class="level-best" id="best-lvl-3">Best: -</div>
+            <button class="pixel-btn play-level-btn" data-level="3" disabled>LOCKED 🔒</button>
+          </div>
+        </div>
+
+        <div class="screen-footer-actions">
+          <button id="btn-levels-back" class="pixel-btn back-btn">⬅ BACK TO MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 3. How To Play Screen -->
+    <div id="screen-how-to-play" class="ui-screen hidden">
+      <div class="menu-backdrop-tint"></div>
+      <div class="menu-content-card">
+        <h2 class="pixel-heading">📖 HOW TO PLAY</h2>
+        
+        <div class="instructions-scrollable">
+          <div class="instruction-box">
+            <div class="instruction-title">⌨️ CONTROLS</div>
+            <div class="control-keys-grid">
+              <div class="key-item">
+                <span class="key-badge">A / ◀</span>
+                <span class="key-badge">D / ▶</span>
+                <span class="key-action">Move Left / Right</span>
+              </div>
+              <div class="key-item">
+                <span class="key-badge">W / ▲ / SPACE</span>
+                <span class="key-action">Jump Over Obstacles</span>
+              </div>
+              <div class="key-item">
+                <span class="key-badge">S / ▼</span>
+                <span class="key-action">Slide Under Low Branches</span>
+              </div>
+              <div class="key-item">
+                <span class="key-badge">ESC / P</span>
+                <span class="key-action">Pause Game</span>
+              </div>
+            </div>
+            <p class="mobile-note">📱 On phones/tablets: Use the on-screen touch buttons. Multi-touch supported!</p>
+          </div>
+
+          <div class="instruction-box">
+            <div class="instruction-title">🎯 MISSION & OBJECTIVES</div>
+            <ul class="gameplay-tips-list">
+              <li>🪙 <strong>Collect Gold Coins:</strong> Increase your score and level rating.</li>
+              <li>❤️ <strong>Survive Hazards:</strong> You have 3 hearts. Avoid potholes, fallen logs, rocks, and traffic!</li>
+              <li>🌧️ <strong>Monsoon Weather Meter:</strong> As the storm escalates (Clear → Rain → Storm → Flood), wind and rain increase.</li>
+              <li>🌊 <strong>Escape the Flood (Level 3):</strong> Floodwater rushes from behind! Keep sprinting and jump across obstacles to reach the safe Kerala house!</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="screen-footer-actions">
+          <button id="btn-how-back" class="pixel-btn back-btn">⬅ BACK TO MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 4. Settings Screen -->
+    <div id="screen-settings" class="ui-screen hidden">
+      <div class="menu-backdrop-tint"></div>
+      <div class="menu-content-card">
+        <h2 class="pixel-heading">⚙️ SETTINGS</h2>
+        
+        <div class="settings-list">
+          <div class="setting-row">
+            <span class="setting-label">🔊 SOUND EFFECTS</span>
+            <button id="btn-toggle-sfx" class="pixel-toggle-btn active">ON</button>
+          </div>
+
+          <div class="setting-row">
+            <span class="setting-label">🎵 MUSIC & AMBIENCE</span>
+            <button id="btn-toggle-bgm" class="pixel-toggle-btn active">ON</button>
+          </div>
+
+          <div class="setting-row">
+            <span class="setting-label">🎚️ MASTER VOLUME</span>
+            <input type="range" id="slider-volume" min="0" max="100" value="80" class="pixel-slider">
+          </div>
+
+          <div class="setting-row">
+            <span class="setting-label">📺 SCANLINE EFFECT</span>
+            <button id="btn-toggle-crt" class="pixel-toggle-btn active">ON</button>
+          </div>
+        </div>
+
+        <div class="screen-footer-actions">
+          <button id="btn-reset-progress" class="pixel-btn danger-btn">🗑️ RESET PROGRESS</button>
+          <button id="btn-settings-back" class="pixel-btn back-btn">⬅ BACK</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 5. Pause Menu Screen -->
+    <div id="screen-pause" class="ui-screen hidden modal-screen">
+      <div class="menu-backdrop-tint modal-tint"></div>
+      <div class="menu-content-card modal-card">
+        <h2 class="pixel-heading pause-title">⏸️ GAME PAUSED</h2>
+        <div class="menu-actions">
+          <button id="btn-pause-resume" class="pixel-btn primary">▶ RESUME</button>
+          <button id="btn-pause-restart" class="pixel-btn secondary">🔄 RESTART LEVEL</button>
+          <button id="btn-pause-levels" class="pixel-btn secondary">🗺️ LEVEL SELECT</button>
+          <button id="btn-pause-menu" class="pixel-btn back-btn">🏠 MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Game Over Screen -->
+    <div id="screen-game-over" class="ui-screen hidden modal-screen">
+      <div class="menu-backdrop-tint modal-tint"></div>
+      <div class="menu-content-card modal-card game-over-card">
+        <h2 class="pixel-heading game-over-title">💀 GAME OVER</h2>
+        <p id="game-over-quote" class="funny-quote">“Ayyyoo! Caught in the monsoon!”</p>
+        
+        <div class="stats-summary-box">
+          <div class="stat-row">
+            <span>LEVEL:</span>
+            <strong id="go-stat-level">Level 1</strong>
+          </div>
+          <div class="stat-row">
+            <span>DISTANCE:</span>
+            <strong id="go-stat-distance">0 m</strong>
+          </div>
+          <div class="stat-row">
+            <span>COINS COLLECTED:</span>
+            <strong id="go-stat-coins">0</strong>
+          </div>
+          <div class="stat-row">
+            <span>FINAL SCORE:</span>
+            <strong id="go-stat-score" class="score-highlight">0</strong>
+          </div>
+          <div class="stat-row">
+            <span>BEST SCORE:</span>
+            <strong id="go-stat-best">0</strong>
+          </div>
+        </div>
+
+        <div class="menu-actions">
+          <button id="btn-go-retry" class="pixel-btn primary">🔄 RETRY LEVEL</button>
+          <button id="btn-go-levels" class="pixel-btn secondary">🗺️ LEVEL SELECT</button>
+          <button id="btn-go-menu" class="pixel-btn back-btn">🏠 MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 7. Level Complete Screen -->
+    <div id="screen-level-complete" class="ui-screen hidden modal-screen">
+      <div class="menu-backdrop-tint modal-tint"></div>
+      <div class="menu-content-card modal-card victory-card">
+        <h2 class="pixel-heading victory-title">🎉 LEVEL COMPLETE!</h2>
+        
+        <div class="stars-awarded-container" id="lc-stars-container">
+          <span class="awarded-star star-1">⭐</span>
+          <span class="awarded-star star-2">⭐</span>
+          <span class="awarded-star star-3">⭐</span>
+        </div>
+
+        <div class="stats-summary-box">
+          <div class="stat-row">
+            <span>DISTANCE:</span>
+            <strong id="lc-stat-distance">2500 m</strong>
+          </div>
+          <div class="stat-row">
+            <span>COINS COLLECTED:</span>
+            <strong id="lc-stat-coins">45</strong>
+          </div>
+          <div class="stat-row">
+            <span>TIME:</span>
+            <strong id="lc-stat-time">01:15</strong>
+          </div>
+          <div class="stat-row highlight-stat">
+            <span>LEVEL SCORE:</span>
+            <strong id="lc-stat-score">3450</strong>
+          </div>
+        </div>
+
+        <div class="menu-actions">
+          <button id="btn-lc-next" class="pixel-btn primary large-btn">NEXT LEVEL ⏩</button>
+          <button id="btn-lc-retry" class="pixel-btn secondary">🔄 REPLAY</button>
+          <button id="btn-lc-menu" class="pixel-btn back-btn">🏠 MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- 8. Final Victory Screen (Level 4 Beaten) -->
+    <div id="screen-final-victory" class="ui-screen hidden">
+      <div class="menu-backdrop-tint"></div>
+      <div class="menu-content-card final-victory-card">
+        <div class="victory-house-badge">🏠</div>
+        <h1 class="pixel-heading final-title">YOU MADE IT HOME!</h1>
+        <p class="final-subtitle">The monsoon raged, but you sprinted through the storm and safely reached your ancestral home in Kerala!</p>
+
+        <div class="final-stats-grid">
+          <div class="final-stat-box">
+            <span class="stat-box-label">TOTAL SCORE</span>
+            <strong id="fv-stat-score" class="gold-text">00000</strong>
+          </div>
+          <div class="final-stat-box">
+            <span class="stat-box-label">TOTAL COINS</span>
+            <strong id="fv-stat-coins">000</strong>
+          </div>
+          <div class="final-stat-box">
+            <span class="stat-box-label">TOTAL DISTANCE</span>
+            <strong id="fv-stat-distance">0 m</strong>
+          </div>
+          <div class="final-stat-box">
+            <span class="stat-box-label">SURVIVAL TIME</span>
+            <strong id="fv-stat-time">00:00</strong>
+          </div>
+        </div>
+
+        <div class="menu-actions">
+          <button id="btn-fv-playagain" class="pixel-btn primary large-btn">🔄 PLAY AGAIN</button>
+          <button id="btn-fv-menu" class="pixel-btn secondary">🏠 MAIN MENU</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- CRT Scanline overlay effect -->
+    <div id="crt-overlay" class="crt-overlay"></div>
+  </div>
+
+  <!-- Game Scripts (Modular Vanilla JS) -->
+  <script src="js/storage.js"></script>
+  <script src="js/audio.js"></script>
+  <script src="js/sprites.js"></script>
+  <script src="js/particles.js"></script>
+  <script src="js/weather.js"></script>
+  <script src="js/camera.js"></script>
+  <script src="js/player.js"></script>
+  <script src="js/obstacles.js"></script>
+  <script src="js/collectibles.js"></script>
+  <script src="js/levels.js"></script>
+  <script src="js/input.js"></script>
+  <script src="js/ui.js"></script>
+  <script src="js/game.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

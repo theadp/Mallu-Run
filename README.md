@@ -8,6 +8,7 @@ Run, jump, dodge obstacles, collect coins, and survive the escalating rain befor
 ## 🎮 Play the Game
 
 **Live Demo:** https://theadp.github.io/Mallu-Run/
+              https://mallu-run.vercel.app/
 
 ## 🕹️ Gameplay
 

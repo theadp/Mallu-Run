@@ -44,6 +44,24 @@ The monsoon reaches its peak.
 
 Survive the flooding and make your escape!
 
+## 📸 Screenshots
+
+###  Main Menu
+
+![Mallu Run Main Menu](assets/screenshots/menu.png)
+
+### Levels
+
+![Levels](assets/screenshots/levels.png)
+
+### Gameplay
+
+![Gameplay](assets/screenshots/game.png)
+
+### Gameover
+
+![Gameover](assets/screenshots/gameover.png)
+
 ## 🎮 Controls
 
 ### 🖥️ Desktop
